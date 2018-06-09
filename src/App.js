@@ -49,6 +49,14 @@ class App extends Component {
           changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading 
          
         </Person>
+
+        <Person 
+          name={this.state.persons[1].name} 
+          age={this.state.persons[2].age} 
+          click={this.switchNameHandler.bind(this, 'Thisisonp')}
+          changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading 
+         
+        </Person>
       </div>
     );
   }
