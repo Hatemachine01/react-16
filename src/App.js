@@ -8,7 +8,16 @@ class App extends Component {
       {name: 'Yadira' , age: 28},
       {name: 'Julio' , age: 25},
       {name: 'Renata' , age: 0},   
-    ]
+    ],
+    showPersons: false
+  }
+
+
+  togglePersonHandler = () => {
+
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow});
+
   }
 
   switchNameHandler = (newName) => {
@@ -37,26 +46,42 @@ class App extends Component {
 
 
   render() {
+
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1x solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
     return (
       <div className="App">
         <h1> It's me, mario! </h1>
         <p> This is really working </p>
-        <button onClick ={this.switchNameHandler.bind(this, 'Thisisonbotton')}> Switch Name </button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age} 
-          click={this.switchNameHandler.bind(this, 'Thisisonp')}
-          changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading 
-         
-        </Person>
+        <button 
+        style={style}
+        onClick ={this.togglePersonHandler.bind(this, 'Thisisonbotton')}> Switch Name 
+        </button>
+        
+        {this.state.showPersons ?
+        <div> 
+          <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age} 
+            click={this.switchNameHandler.bind(this, 'Thisisonp')}
+            changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading 
+           
+          </Person>
 
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[2].age} 
-          click={this.switchNameHandler.bind(this, 'Thisisonp')}
-          changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading 
-         
-        </Person>
+        
+          <Person 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[2].age} 
+            click={this.switchNameHandler.bind(this, 'Thisisonp')}
+            changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading          
+          </Person>
+        </div> : null
+        } 
       </div>
     );
   }
