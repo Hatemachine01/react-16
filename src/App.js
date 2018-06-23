@@ -5,9 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      {name: 'Yadira' , age: 28},
-      {name: 'Julio' , age: 25},
-      {name: 'Renata' , age: 0},   
+      {name: 'Yadira' , age: 28 , id: 1 },
+      {name: 'Julio' , age: 25 , id: 2}, 
+      {name: 'Renata' , age: 0 ,  id: 3},   
     ],
     showPersons: false
   }
@@ -20,15 +20,12 @@ class App extends Component {
 
   }
 
-  switchNameHandler = (newName) => {
-    // this.state.persons[0].name = 'Julius';
-    this.setState({
-      persons: [
-      {name: newName , age: 28},
-      {name: newName , age: 25},
-      ]
-    })
-  }
+
+  deletePersonHandler = (personIndex) => {
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
+   }
 
   nameChangeHandler = (event) => {
 
@@ -56,24 +53,17 @@ class App extends Component {
     let persons = null;
 
     if (this.state.showPersons) {
-       persons =  <div> 
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age} 
-            click={this.switchNameHandler.bind(this, 'Thisisonp')}
-            changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading 
-           
-          </Person>
-
-        
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age} 
-            click={this.switchNameHandler.bind(this, 'Thisisonp')}
-            changed={this.nameChangeHandler}> My Hobbies are Coding, traveling and reading          
-          </Person>
-        </div> 
-
+       persons = (
+        <div> 
+        {this.state.persons.map((person, index) => {
+          return  <Person
+            click={() => this.deletePersonHandler(index)}
+            name = {person.name}
+            age = {person.age}
+            key = {person.id} />
+        })}
+        </div>
+        );
     };
 
 
